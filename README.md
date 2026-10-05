@@ -10,14 +10,17 @@ Selain proses penyetoran, nasabah juga dapat melakukan penarikan saldo. Penarika
 
 ---
 
-### 2. Actor
+## 2. Actor
 
-**Nasabah**
+Actor yang terlibat dalam sistem adalah:
 
-Nasabah merupakan pihak yang melakukan penyetoran sampah dan menggunakan saldo yang diperoleh untuk melakukan penarikan.
+- **Nasabah**  
+  Menyetorkan sampah dan melakukan penarikan saldo.
+
+- **Petugas Bank Sampah**  
+  Membantu mencatat jenis dan berat sampah yang disetorkan serta memproses transaksi nasabah.
 
 ---
-
 ### 3. Input & Output
 
 #### Input
