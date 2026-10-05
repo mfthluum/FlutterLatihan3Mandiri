@@ -108,19 +108,22 @@ Dengan mengenali pola tersebut, proses yang sama dapat dibuat menjadi fungsi seh
 
 ---
 
-## 8. Abstraction
-
-Abstraksi digunakan untuk mengambil bagian penting dari permasalahan dan mengabaikan hal yang tidak diperlukan dalam proses perhitungan.
-
-Data utama yang digunakan dalam sistem Bank Sampah adalah:
-
-- Jenis sampah
-- Berat sampah
-- Harga per kilogram
-- Saldo
-- Jumlah penarikan
-
-Pada program ini, jenis sampah menjadi bagian penting karena digunakan untuk menentukan harga sampah. Berat digunakan untuk menghitung hasil setoran, sedangkan saldo dan jumlah penarikan digunakan dalam proses penarikan.
+##8. Abstraction
+bankSampah
+│
+├── jenisSampah
+├── beratSampah
+├── hargaSampah
+├── hasilSetoran
+├── saldoNasabah
+└── jumlahPenarikan
+Data utama yang diperlukan dalam sistem:
+Jenis sampah → menentukan harga sampah.
+Berat sampah → jumlah sampah yang disetorkan dalam kg.
+Harga sampah → nilai setiap kg berdasarkan jenisnya.
+Hasil setoran → jumlah uang yang diperoleh dari sampah yang disetorkan.
+Saldo nasabah → jumlah uang yang tersedia setelah transaksi.
+Jumlah penarikan → nominal saldo yang ingin diambil oleh nasabah.
 
 ---
 
