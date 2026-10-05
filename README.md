@@ -72,25 +72,26 @@ Actor yang terlibat dalam sistem adalah:
 ```text
 bankSampah
 │
-├── setoranSampah
-│   ├── jenisSampah
-│   ├── beratSampah
-│   ├── tentukanHarga
-│   └── hitungSetoran
+├── hargaSampah
+│   └── menentukan harga berdasarkan jenis sampah
 │
-├── saldoNasabah
-│   ├── tambahSaldo
-│   └── prosesPenarikan
-│       ├── cekMinimalPenarikan
-│       └── cekKecukupanSaldo
+├── hitungSetoran
+│   ├── mengambil harga sampah
+│   └── menghitung harga × berat
 │
-└── tampilkanHasil
-    ├── hasilSetoran
-    ├── jumlahPenarikan
-    └── saldoAkhir
+├── prosesPenarikan
+│   ├── mengecek minimal penarikan
+│   ├── mengecek kecukupan saldo
+│   └── mengurangi saldo jika penarikan berhasil
+│
+└── main
+    ├── menentukan data sampah
+    ├── menambahkan hasil setoran ke saldo
+    ├── menentukan jumlah penarikan
+    └── menampilkan hasil transaksi
 ```
 
-Program dibagi menjadi beberapa bagian berdasarkan proses yang dilakukan. Setiap bagian memiliki tugas masing-masing seperti menentukan harga, menghitung hasil setoran, dan memproses penarikan saldo.
+Program dibagi menjadi beberapa fungsi berdasarkan proses yang dilakukan. Fungsi `hargaSampah` digunakan untuk menentukan harga berdasarkan jenis sampah, `hitungSetoran` digunakan untuk menghitung hasil setoran, sedangkan `prosesPenarikan` digunakan untuk memproses penarikan saldo.
 
 ---
 
@@ -99,16 +100,16 @@ Program dibagi menjadi beberapa bagian berdasarkan proses yang dilakukan. Setiap
 Dalam sistem Bank Sampah terdapat beberapa pola:
 
 - **Penentuan harga berdasarkan jenis**  
-  Setiap jenis sampah memiliki harga per kg yang berbeda.
+  Harga sampah ditentukan berdasarkan jenis sampah yang dipilih.
 
 - **Perhitungan hasil setoran**  
-  Hasil setoran diperoleh dari harga sampah per kg dikalikan dengan berat sampah.
+  Hasil setoran dihitung dari harga sampah per kg dikalikan dengan berat sampah.
 
 - **Pengecekan penarikan**  
-  Sebelum melakukan penarikan, sistem mengecek batas minimal penarikan dan kecukupan saldo.
+  Setiap penarikan diperiksa terlebih dahulu. Jika nominal kurang dari Rp10.000 atau lebih besar dari saldo, maka penarikan ditolak.
 
 - **Perubahan saldo**  
-  Setoran akan menambah saldo, sedangkan penarikan yang berhasil akan mengurangi saldo.
+  Hasil setoran ditambahkan ke saldo. Jika penarikan berhasil, saldo akan dikurangi sesuai jumlah penarikan. Jika penarikan gagal, saldo tetap.
 
 ---
 
@@ -119,22 +120,22 @@ bankSampah
 │
 ├── jenisSampah
 ├── beratSampah
-├── hargaSampah
-├── hasilSetoran
+├── harga
+├── hasilSetor
 ├── saldoNasabah
-└── jumlahPenarikan
+└── jumlahTarik
 ```
 
-Data utama yang digunakan dalam sistem:
+Data yang digunakan dalam program:
 
 - **Jenis sampah** → menentukan harga sampah.
 - **Berat sampah** → jumlah sampah yang disetorkan dalam kg.
-- **Harga sampah** → nilai setiap kg berdasarkan jenisnya.
-- **Hasil setoran** → jumlah uang yang diperoleh dari sampah yang disetorkan.
-- **Saldo nasabah** → jumlah uang yang tersedia setelah transaksi.
-- **Jumlah penarikan** → nominal saldo yang ingin diambil oleh nasabah.
+- **Harga** → harga sampah berdasarkan jenisnya.
+- **Hasil setor** → hasil perkalian harga dengan berat sampah.
+- **Saldo nasabah** → saldo yang dimiliki setelah hasil setoran ditambahkan.
+- **Jumlah tarik** → nominal saldo yang ingin ditarik.
 
-Jenis sampah:
+Jenis sampah yang digunakan:
 
 ```text
 JenisSampah
@@ -148,17 +149,20 @@ JenisSampah
 ### 9. Algorithm
 
 1. Program dimulai.
-2. Masukkan jenis sampah.
-3. Masukkan berat sampah.
-4. Tentukan harga berdasarkan jenis sampah.
-5. Hitung hasil setoran.
-6. Tambahkan hasil setoran ke saldo.
-7. Masukkan jumlah penarikan.
-8. Cek apakah penarikan minimal Rp10.000.
-9. Cek apakah saldo mencukupi.
-10. Jika semua syarat terpenuhi, saldo dikurangi sesuai jumlah penarikan.
-11. Tampilkan hasil setoran dan saldo akhir.
-12. Program selesai.
+2. Saldo nasabah diatur menjadi `0`.
+3. Tentukan jenis sampah.
+4. Tentukan berat sampah.
+5. Tentukan harga sampah berdasarkan jenisnya.
+6. Hitung hasil setoran dari harga dikalikan berat sampah.
+7. Tambahkan hasil setoran ke saldo nasabah.
+8. Tentukan jumlah saldo yang ingin ditarik.
+9. Cek apakah jumlah penarikan kurang dari Rp10.000.
+10. Jika kurang dari Rp10.000, penarikan ditolak dan saldo tetap.
+11. Jika tidak, cek apakah jumlah penarikan lebih besar dari saldo.
+12. Jika saldo tidak mencukupi, penarikan ditolak dan saldo tetap.
+13. Jika saldo mencukupi, jumlah penarikan dikurangi dari saldo.
+14. Tampilkan hasil setoran, jumlah penarikan, dan saldo akhir.
+15. Program selesai.
 
 ---
 
@@ -166,6 +170,9 @@ JenisSampah
 
 ```text
 [ MULAI ]
+     |
+     v
+[ Saldo = 0 ]
      |
      v
 ( Input Jenis Sampah & Berat )
@@ -177,7 +184,7 @@ JenisSampah
 [ Hitung Hasil Setoran ]
      |
      v
-[ Tambahkan Hasil ke Saldo ]
+[ Tambahkan Hasil Setoran ke Saldo ]
      |
      v
 ( Input Jumlah Penarikan )
@@ -186,18 +193,18 @@ JenisSampah
 [ Cek Penarikan >= Rp10.000
   dan Saldo Mencukupi ]
      |
-     +---- ( Tidak ) ----> [ PENARIKAN DITOLAK ]
-     |                              |
-     |                              v
-     |                       [ Tampilkan Saldo ]
+     +---- ( Tidak ) ----> [ PENARIKAN GAGAL ]
+     |                            |
+     |                            v
+     |                     [ Saldo Tetap ]
      |
      +---- ( Ya ) -------> [ Kurangi Saldo ]
-                                    |
-                                    v
-                             [ Tampilkan Saldo ]
-                                    |
-                                    v
-                               [ SELESAI ]
+                                  |
+                                  v
+                           [ Tampilkan Hasil ]
+                                  |
+                                  v
+                             [ SELESAI ]
 ```
 
 ---
@@ -231,35 +238,57 @@ END FUNCTION
 
 FUNCTION prosesPenarikan(saldo, jumlah)
     JIKA jumlah < 10000
-        Tampilkan "Penarikan minimal Rp10000"
+        Tampilkan "Gagal: minimal penarikan adalah Rp10000"
         RETURN saldo
 
     JIKA jumlah > saldo
-        Tampilkan "Saldo tidak cukup"
+        Tampilkan "Gagal: saldo tidak cukup"
         RETURN saldo
 
-    saldo = saldo - jumlah
-
-    RETURN saldo
+    RETURN saldo - jumlah
 END FUNCTION
 
 
-saldo = 0
+saldoNasabah = 0
 
-Tentukan jenis sampah
-Tentukan berat sampah
+jenisSampah = "plastik"
+beratSampah = 4.5
 
-hasilSetoran = hitungSetoran(jenis, berat)
+hasilSetor = hitungSetoran(jenisSampah, beratSampah)
 
-saldo = saldo + hasilSetoran
+saldoNasabah = saldoNasabah + hasilSetor
 
-Tentukan jumlah penarikan
+jumlahTarik = 30000
 
-saldo = prosesPenarikan(saldo, jumlahPenarikan)
+saldoNasabah = prosesPenarikan(saldoNasabah, jumlahTarik)
 
-Tampilkan hasil setoran
+Tampilkan jenis sampah
+Tampilkan berat sampah
+Tampilkan hasil setor
+Tampilkan saldo nasabah
 Tampilkan jumlah penarikan
 Tampilkan saldo akhir
 
 SELESAI
+```
+
+---
+
+### Hasil Skenario Program
+
+Pada contoh program yang digunakan:
+
+```text
+Jenis sampah : plastik
+Berat        : 4.5 kg
+Hasil setor  : Rp22500
+Saldo        : Rp22500
+Penarikan    : Rp30000
+```
+
+Karena jumlah penarikan sebesar Rp30.000 lebih besar daripada saldo Rp22.500, maka penarikan ditolak.
+
+```text
+Gagal: saldo tidak cukup
+Saldo akhir: Rp22500
 ```
