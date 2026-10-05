@@ -1,6 +1,3 @@
-Siap coy. Gw bikin **langsung format `README.md`**, termasuk **flowchart Mermaid** biar lu tinggal copy-paste ke README GitHub. Flowchart-nya gw buat sesuai alur program Bank Sampah lu, bukan flowchart generik. Format analisisnya mengikuti poin tugas di halaman 25 modul. 
-
-````markdown
 # Bank Sampah
 
 ## Analisis Sistem
@@ -88,33 +85,19 @@ bankSampah
     ├── hasilSetoran
     ├── jumlahPenarikan
     └── saldoAkhir
-````
 
-Program dibagi menjadi beberapa bagian berdasarkan proses yang dilakukan. Proses penentuan harga, perhitungan setoran, dan penarikan saldo dipisahkan agar setiap bagian memiliki tugas masing-masing.
-
----
-
-### 7. Pattern Recognition
-
+    Program dibagi menjadi beberapa bagian berdasarkan proses yang dilakukan. Proses penentuan harga, perhitungan setoran, dan penarikan saldo dipisahkan agar setiap bagian memiliki tugas masing-masing.
+7. Pattern Recognition
 Dalam proses Bank Sampah terdapat beberapa pola yang dapat dikenali:
-
-* **Harga berdasarkan jenis sampah**
-  Jenis sampah yang berbeda memiliki harga per kg yang berbeda.
-
-* **Perhitungan hasil setoran**
-  Nilai setoran diperoleh dari harga sampah per kg dikalikan dengan berat sampah yang disetorkan.
-
-* **Validasi penarikan**
-  Sebelum saldo dikurangi, jumlah penarikan perlu diperiksa berdasarkan batas minimal dan jumlah saldo yang tersedia.
-
-* **Perubahan saldo**
-  Setoran akan menambah saldo, sedangkan penarikan yang berhasil akan mengurangi saldo.
-
----
-
-### 8. Abstraction
-
-```text
+Harga berdasarkan jenis sampah
+Jenis sampah yang berbeda memiliki harga per kg yang berbeda.
+Perhitungan hasil setoran
+Nilai setoran diperoleh dari harga sampah per kg dikalikan dengan berat sampah yang disetorkan.
+Validasi penarikan
+Sebelum saldo dikurangi, jumlah penarikan perlu diperiksa berdasarkan batas minimal dan jumlah saldo yang tersedia.
+Perubahan saldo
+Setoran akan menambah saldo, sedangkan penarikan yang berhasil akan mengurangi saldo.
+8. Abstraction
 bankSampah
 │
 ├── jenisSampah
@@ -123,50 +106,34 @@ bankSampah
 ├── hasilSetoran
 ├── saldoNasabah
 └── jumlahPenarikan
-```
-
 Data utama yang digunakan dalam sistem:
-
-* **Jenis sampah** → menentukan harga sampah.
-* **Berat sampah** → jumlah sampah yang disetorkan dalam kg.
-* **Harga sampah** → nilai setiap kg berdasarkan jenisnya.
-* **Hasil setoran** → jumlah uang yang diperoleh dari sampah yang disetorkan.
-* **Saldo nasabah** → jumlah uang yang tersedia setelah transaksi.
-* **Jumlah penarikan** → nominal saldo yang ingin diambil oleh nasabah.
-
+Jenis sampah → menentukan harga sampah.
+Berat sampah → jumlah sampah yang disetorkan dalam kg.
+Harga sampah → nilai setiap kg berdasarkan jenisnya.
+Hasil setoran → jumlah uang yang diperoleh dari sampah yang disetorkan.
+Saldo nasabah → jumlah uang yang tersedia setelah transaksi.
+Jumlah penarikan → nominal saldo yang ingin diambil oleh nasabah.
 Jenis sampah yang digunakan:
-
-```text
 JenisSampah
 ├── plastik
 ├── kertas
 └── logam
-```
-
----
-
-### 9. Algorithm
-
-1. Program dimulai.
-2. Tentukan jenis sampah.
-3. Tentukan berat sampah.
-4. Tentukan harga berdasarkan jenis sampah.
-5. Hitung hasil setoran dari harga dikalikan berat sampah.
-6. Tambahkan hasil setoran ke saldo nasabah.
-7. Tentukan jumlah penarikan.
-8. Periksa apakah jumlah penarikan kurang dari Rp10.000.
-9. Jika kurang dari Rp10.000, penarikan ditolak.
-10. Jika tidak, periksa apakah jumlah penarikan lebih besar dari saldo.
-11. Jika jumlah penarikan lebih besar dari saldo, penarikan ditolak.
-12. Jika memenuhi kedua aturan, saldo dikurangi dengan jumlah penarikan.
-13. Tampilkan hasil setoran, jumlah penarikan, dan saldo akhir.
-14. Program selesai.
-
----
-
-### 10. Pseudocode
-
-```text
+9. Algorithm
+Program dimulai.
+Tentukan jenis sampah.
+Tentukan berat sampah.
+Tentukan harga berdasarkan jenis sampah.
+Hitung hasil setoran dari harga dikalikan berat sampah.
+Tambahkan hasil setoran ke saldo nasabah.
+Tentukan jumlah penarikan.
+Periksa apakah jumlah penarikan kurang dari Rp10.000.
+Jika kurang dari Rp10.000, penarikan ditolak.
+Jika tidak, periksa apakah jumlah penarikan lebih besar dari saldo.
+Jika jumlah penarikan lebih besar dari saldo, penarikan ditolak.
+Jika memenuhi kedua aturan, saldo dikurangi dengan jumlah penarikan.
+Tampilkan hasil setoran, jumlah penarikan, dan saldo akhir.
+Program selesai.
+10. Pseudocode
 MULAI
 
 FUNCTION hargaSampah(jenis)
@@ -224,48 +191,11 @@ Tampilkan jumlah penarikan
 Tampilkan saldo akhir
 
 SELESAI
-```
-
----
-
-### 11. Flowchart
-
+11. Flowchart
 Flowchart proses utama Bank Sampah:
 
-```mermaid
-flowchart TD
-    A([Mulai]) --> B[/Masukkan jenis sampah/]
-    B --> C[/Masukkan berat sampah/]
-    C --> D{Jenis sampah?}
 
-    D -->|Plastik| E[Harga = Rp5.000/kg]
-    D -->|Kertas| F[Harga = Rp5.000/kg]
-    D -->|Logam| G[Harga = Rp10.000/kg]
 
-    E --> H[Hitung hasil setoran]
-    F --> H
-    G --> H
-
-    H --> I[Tambahkan hasil setoran ke saldo]
-    I --> J[/Masukkan jumlah penarikan/]
-
-    J --> K{Penarikan >= Rp10.000?}
-
-    K -->|Tidak| L[Penarikan ditolak]
-    L --> N[Tampilkan saldo]
-
-    K -->|Ya| M{Penarikan <= saldo?}
-
-    M -->|Tidak| O[Penarikan ditolak karena saldo tidak cukup]
-    O --> N
-
-    M -->|Ya| P[Kurangi saldo sesuai penarikan]
-    P --> N
-
-    N --> Q[/Tampilkan hasil setoran dan saldo akhir/]
-    Q --> R([Selesai])
-```
-
-### Kesimpulan
-
+Kesimpulan
 Program Bank Sampah menggunakan beberapa fungsi untuk membagi proses menjadi bagian yang lebih sederhana. Program dapat menentukan harga berdasarkan jenis sampah, menghitung hasil setoran, menambahkan hasil setoran ke saldo, serta melakukan pengecekan sebelum saldo ditarik.
+Dengan adanya aturan minimal penarikan dan pengecekan saldo, program dapat mencegah penarikan yang tidak sesuai dengan ketentuan Bank Sampah.
